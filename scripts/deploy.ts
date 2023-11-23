@@ -1,26 +1,30 @@
-import { formatEther, parseEther } from "viem";
-import hre from "hardhat";
+import { formatEther, parseEther } from 'viem'
+import hre from 'hardhat'
+import fs from 'fs'
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = BigInt(currentTimestampInSeconds + 60);
+  const [owner, jackpot, ...otherAccounts] = await hre.viem.getWalletClients()
+  const blotto = await hre.viem.deployContract('Blotto')
+  const lottery = await hre.viem.deployContract('Lottery', [
+    jackpot.account.address,
+    blotto.address,
+  ])
 
-  const lockedAmount = parseEther("0.001");
-
-  const lock = await hre.viem.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  let data = {
+    blotto: blotto.address,
+    lottery: lottery.address,
+    jackpot: jackpot.account.address,
+  }
+  fs.writeFileSync('deployed.json', JSON.stringify(data, null, 2))
 
   console.log(
-    `Lock with ${formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+    `Blotto: ${blotto.address}\nLottery: ${lottery.address}\nJackpot: ${jackpot.account.address}`
+  )
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+  console.error(error)
+  process.exitCode = 1
+})
