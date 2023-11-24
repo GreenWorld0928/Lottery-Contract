@@ -1,4 +1,4 @@
-import { formatEther, parseEther } from 'viem'
+import { formatEther, getAddress, parseEther, parseGwei } from 'viem'
 import hre from 'hardhat'
 import fs from 'fs'
 
@@ -20,6 +20,9 @@ async function main() {
   console.log(
     `Blotto: ${blotto.address}\nLottery: ${lottery.address}\nJackpot: ${jackpot.account.address}`
   )
+
+  const balance = await blotto.read.balanceOf([owner.account.address])
+  console.log(balance.toString())
 }
 
 // We recommend this pattern to be able to use async/await everywhere
