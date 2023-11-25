@@ -174,7 +174,7 @@ contract Lottery is ReentrancyGuard {
             keccak256(abi.encodePacked(draw)) ==
             keccak256(abi.encodePacked("monthly"))
         ) {
-            amount = (monthlyPool * 90) / 100;
+            amount = (monthlyPool * 95) / 100;
             remaining = monthlyPool - amount;
             monthlyPool = 0;
             resetParticipants("monthly");
