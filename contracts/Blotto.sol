@@ -8,7 +8,7 @@ contract Blotto is ERC20, ReentrancyGuard {
     mapping(address => uint256) public lastAccumulatedEtherPerToken;
     uint256 public totalAccumulatedEtherPerToken;
 
-    uint256 public Supply = 10000;
+    uint256 public Supply = 1000000;
 
     event Deposite(address indexed account, uint256 amount);
     event Redeem(address indexed account, uint256 amount);

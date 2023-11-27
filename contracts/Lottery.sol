@@ -24,7 +24,7 @@ contract Lottery is ReentrancyGuard {
     address payable public megaJackpot;
     IBlotto public blottoDistributor;
     address payable public constant teamAddress1 =
-        payable(0x0000000000000000000000000000000000000000);
+        payable(0xcE8d4889CbDD8fD33B3632F7163EE47B1A641EC7);
     address payable public constant teamAddress2 =
         payable(0x7950d7cA3C7E49401F0591D77CA5166Afc2343b9);
 
