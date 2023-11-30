@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract Blotto is ERC20, ReentrancyGuard {
+contract Milotto is ERC20, ReentrancyGuard {
     mapping(address => uint256) public lastAccumulatedEtherPerToken;
     uint256 public totalAccumulatedEtherPerToken;
 
@@ -13,7 +13,7 @@ contract Blotto is ERC20, ReentrancyGuard {
     event Deposite(address indexed account, uint256 amount);
     event Redeem(address indexed account, uint256 amount);
 
-    constructor() ERC20("Blotto", "BLT") {
+    constructor() ERC20("Milady Lottery", "MLT") {
         _mint(msg.sender, Supply * 10 ** decimals());
     }
 

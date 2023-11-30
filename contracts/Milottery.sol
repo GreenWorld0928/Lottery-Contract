@@ -2,9 +2,9 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "./IBlotto.sol";
+import "./IMilotto.sol";
 
-contract Lottery is ReentrancyGuard {
+contract Milottery is ReentrancyGuard {
     uint256 public dailyPool;
     uint256 public weeklyPool;
     uint256 public monthlyPool;
@@ -22,7 +22,7 @@ contract Lottery is ReentrancyGuard {
     uint256 private monthlySelectionTime;
 
     address payable public megaJackpot;
-    IBlotto public blottoDistributor;
+    IMilotto public blottoDistributor;
     address payable public constant teamAddress1 =
         payable(0x3CBE6cA165C9cE0Bbf43181d259BedC317763610);
     address payable public constant teamAddress2 =
@@ -42,7 +42,7 @@ contract Lottery is ReentrancyGuard {
 
     constructor(address _megaJackpot, address _blottoDistributor) {
         megaJackpot = payable(_megaJackpot);
-        blottoDistributor = IBlotto(_blottoDistributor);
+        blottoDistributor = IMilotto(_blottoDistributor);
         dailySelectionTime = block.timestamp;
         weeklySelectionTime = block.timestamp;
         monthlySelectionTime = block.timestamp;

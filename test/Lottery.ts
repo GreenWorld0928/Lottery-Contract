@@ -10,8 +10,8 @@ describe('Lottery', () => {
   const deployContractFixture = async () => {
     const [owner, jackpot, ...otherAccounts] = await hre.viem.getWalletClients()
 
-    const blotto = await hre.viem.deployContract('Blotto')
-    const lottery = await hre.viem.deployContract('Lottery', [
+    const blotto = await hre.viem.deployContract('Milotto')
+    const lottery = await hre.viem.deployContract('Milottery', [
       jackpot.account.address,
       blotto.address,
     ])

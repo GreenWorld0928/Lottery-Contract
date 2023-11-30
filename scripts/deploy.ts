@@ -4,8 +4,8 @@ import fs from 'fs'
 
 async function main() {
   const [owner, jackpot, ...otherAccounts] = await hre.viem.getWalletClients()
-  const blotto = await hre.viem.deployContract('Blotto')
-  const lottery = await hre.viem.deployContract('Lottery', [
+  const blotto = await hre.viem.deployContract('Milotto')
+  const lottery = await hre.viem.deployContract('Milottery', [
     '0xa5060F94a92e744C24161e4178349Da57abAA13e',
     blotto.address,
   ])
