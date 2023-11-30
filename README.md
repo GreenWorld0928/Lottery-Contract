@@ -11,3 +11,7 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
+
+```shell
+yarn hardhat run --network ethereum scripts/deploy.ts
+```

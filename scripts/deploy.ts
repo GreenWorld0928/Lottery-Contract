@@ -6,14 +6,14 @@ async function main() {
   const [owner, jackpot, ...otherAccounts] = await hre.viem.getWalletClients()
   const blotto = await hre.viem.deployContract('Blotto')
   const lottery = await hre.viem.deployContract('Lottery', [
-    jackpot.account.address,
+    '0xa5060F94a92e744C24161e4178349Da57abAA13e',
     blotto.address,
   ])
 
   let data = {
     blotto: blotto.address,
     lottery: lottery.address,
-    jackpot: jackpot.account.address,
+    jackpot: '0xa5060F94a92e744C24161e4178349Da57abAA13e',
   }
   fs.writeFileSync('deployed.json', JSON.stringify(data, null, 2))
 
