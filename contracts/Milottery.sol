@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.7.6;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./IMilotto.sol";
@@ -121,7 +121,7 @@ contract Milottery is ReentrancyGuard {
     function selectDailyWinner() external selectionDue("daily") {
         address winner = dailyParticipants[
             uint256(
-                keccak256(abi.encodePacked(block.timestamp, block.difficulty))
+                keccak256(abi.encodePacked(block.timestamp, block.prevrandao))
             ) % dailyParticipants.length
         ];
         distributePrize(winner, "daily");
@@ -131,7 +131,7 @@ contract Milottery is ReentrancyGuard {
     function selectWeeklyWinner() external selectionDue("weekly") {
         address winner = weeklyParticipants[
             uint256(
-                keccak256(abi.encodePacked(block.timestamp, block.difficulty))
+                keccak256(abi.encodePacked(block.timestamp, block.prevrandao))
             ) % weeklyParticipants.length
         ];
         distributePrize(winner, "weekly");
@@ -141,7 +141,7 @@ contract Milottery is ReentrancyGuard {
     function selectMonthlyWinner() external selectionDue("monthly") {
         address winner = monthlyParticipants[
             uint256(
-                keccak256(abi.encodePacked(block.timestamp, block.difficulty))
+                keccak256(abi.encodePacked(block.timestamp, block.prevrandao))
             ) % monthlyParticipants.length
         ];
         distributePrize(winner, "monthly");

@@ -1,21 +1,53 @@
 import {
   time,
   loadFixture,
+  impersonateAccount,
 } from '@nomicfoundation/hardhat-toolbox-viem/network-helpers'
 import { expect } from 'chai'
 import hre from 'hardhat'
-import { getAddress, parseGwei } from 'viem'
+import { getAddress, parseGwei, parseEther } from 'viem'
+
+function sqrt(value: bigint) {
+  if (value < 0n) {
+    throw 'square root of negative numbers is not supported'
+  }
+
+  if (value < 2n) {
+    return value
+  }
+
+  function newtonIteration(n: bigint, x0: bigint) {
+    const x1 = (n / x0 + x0) >> 1n
+    if (x0 === x1 || x0 === x1 - 1n) {
+      return x0
+    }
+    return newtonIteration(n, x1)
+  }
+
+  return newtonIteration(value, 1n)
+}
+export function encodePriceSqrt(reserve1: bigint, reserve0: bigint): bigint {
+  let fraction = (reserve1 * 2n ** 192n) / reserve0
+  let sqrtRatio = sqrt(fraction)
+
+  return sqrtRatio
+}
 
 describe('Lottery', () => {
   const deployContractFixture = async () => {
-    const [owner, jackpot, ...otherAccounts] = await hre.viem.getWalletClients()
+    console.log(encodePriceSqrt(parseEther('900000'), parseEther('0.1')))
+    console.log(encodePriceSqrt(parseEther('0.1'), parseEther('900000')))
 
-    const blotto = await hre.viem.deployContract('Milotto')
+    const [owner, jackpot, ...otherAccounts] = await hre.viem.getWalletClients()
+    const publicClient = await hre.viem.getPublicClient()
+
+    const blotto = await hre.viem.deployContract('Milotto', undefined, {
+      value: parseEther('0.1'),
+    })
     const lottery = await hre.viem.deployContract('Milottery', [
       jackpot.account.address,
       blotto.address,
     ])
-    const publicClient = await hre.viem.getPublicClient()
 
     return {
       blotto,

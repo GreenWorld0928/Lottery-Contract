@@ -9,8 +9,14 @@ const PRIVATE_KEY = vars.get(
 )
 
 const config: HardhatUserConfig = {
-  solidity: '0.7.6',
+  solidity: '0.8.20',
   networks: {
+    hardhat: {
+      forking: {
+        url: MAINNET_URL,
+        blockNumber: 18728585,
+      },
+    },
     localhost: {
       url: 'http://127.0.0.1:8545',
     },
